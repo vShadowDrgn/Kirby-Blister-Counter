@@ -44,7 +44,8 @@ def ir_loop():
 
 @app.route('/')
 def index():
-    return f"Es wurden bereits {counter} Blister eingeworfen. Das sind {counter * 5} Punkte"
+    #return f"Es wurden bereits {counter} Blister eingeworfen. Das sind {counter * 5} Punkte"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     t = Thread(target=ir_loop)
