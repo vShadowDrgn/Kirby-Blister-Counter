@@ -1,5 +1,5 @@
 import time
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO # type: ignore
 from threading import Thread, Lock
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 

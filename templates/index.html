@@ -4,21 +4,28 @@
         <style>
              body {
                 margin: 0px;
+                font-size: 30px;
             }
             .mycontainer {
               width:100%;
               overflow:auto;
               padding: 10px;
             }
-            .text {
-              width: 30%;
+            .text1 {
+              width: 25%;
               float:left;
               margin-left: 25px;
+              margin-top: 50px;
+            }
+            .text2 {
+                width: 30%;
+                float: left;
+                margin-top: 80px;
             }
             .mycontainer1 {
                 width: 10%;
                 float: left;
-                
+                align-items: center;
             }
             .headline {
                 background-color: rgb(4, 36, 73);
@@ -31,7 +38,13 @@
                 font-size: 70px;
                 color: azure;
             }
-           
+            #reset {
+                font-size: 25px;
+                margin-left: 5%;
+            }
+            #drinks {
+                font-size: 25px;
+            }
             </style>
     
     </head>
@@ -41,29 +54,38 @@
 </div>
 
 <div class="mycontainer">
-    <div class="text">
-        <p>Du hast bereits X Blister eingeworfen.</p>
+    <div class="text1">
+        <p>Du hast bereits</p>
+        <p>Blister eingeworfen.</p>
         <p>Das sind Y Punkte.</p>   
         
-        <button id="reset">Reset</button>
     </div>
-
+    
     <div class="mycontainer1">
-        <div style="height: 300px; width: 50px; border: 5px solid black; position: relative;" >
-            <div style="background-color: aqua; width: 50px; height: 50px; bottom: 0; position: absolute;">
+        <div style="height: 300px; width: 100px; border: 5px solid black; position: relative;" >
+            <div style="background-color: aqua; width: 100px; height: 200px; bottom: 0; position: absolute;">
             </div>
+            <p style="position: absolute; margin-top: 130px; margin-left: 30px;">50</p>
         </div>
+        <button id="reset" style="position: relative;">Reset</button>
     </div>
 
-    <div class="text">
+    <div class="text2">
         <p>Das sind (Z/1000*30kg) gespartes Plastik.</p>
         <p>(A/1000*150kg) eingespartes CO²</p> 
-        <p> und B eingesparte € (im Gegensatz zu Flaschenwasser/ Limo, etc).</p>   
     </div>
 </div>
 
 <div>
-    <p>Geld gespart im Vergleich zu B : C €.</p>
+    <!-- <p>Geld gespart im Vergleich zu B : C €.</p> -->
+    <label for="drinks">Geld gespart im Vergleich zu:</label>
+    <select name="drinks" id="drinks">
+        <option value="water">Wasser</option>
+        <option value="cola">Coca Cola</option>
+        <option value="sprite">Sprite</option>
+        <option value="juice">Apfelsaft</option>
+      </select>
+    <label for="drinks">:C €</label>
 </div>
 
 
