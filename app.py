@@ -2,6 +2,7 @@ import time
 import RPi.GPIO as GPIO # type: ignore
 from threading import Thread, Lock
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+from database_manager import Dao
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -13,6 +14,7 @@ pwm.start(0)
 servo_lock = Lock()
 counter = 0
 app = Flask(__name__)
+database = Dao("database.db")
 
 def set_angle(angle):
     with servo_lock:
@@ -44,8 +46,11 @@ def ir_loop():
 
 @app.route('/')
 def index():
-    #return f"Es wurden bereits {counter} Blister eingeworfen. Das sind {counter * 5} Punkte"
     return render_template("index.html")
+
+@app.route('/statistik')
+def statistik():
+    return render_template("statistik.html")
 
 if __name__ == "__main__":
     t = Thread(target=ir_loop)

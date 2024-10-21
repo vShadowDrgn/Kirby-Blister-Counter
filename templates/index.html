@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <style>
              body {
@@ -30,13 +31,16 @@
             .headline {
                 background-color: rgb(4, 36, 73);
                 margin: 0px;
-
+                overflow: auto;
+                width: 100%;
             }
             h1 {
                 padding: 10px;
                 margin: 0px;
                 font-size: 70px;
                 color: azure;
+                width: 60%;
+                float: left;
             }
             #reset {
                 font-size: 25px;
@@ -45,12 +49,21 @@
             #drinks {
                 font-size: 25px;
             }
+            .statistic {
+                font-size: 70px;
+                float: right;
+                background-color: rgb(4, 36, 73);
+                color: azure;
+                width: 10%;
+                padding: 10px;
+            }
             </style>
     
     </head>
 <body>
 <div class="headline">
     <h1>Waterdrop Blister Counter</h1>
+    <a href="/statistik" class="statistic">Statistik</a>
 </div>
 
 <div class="mycontainer">
@@ -90,5 +103,7 @@
 
 
 </body>
-<script></script>
+<script>
+
+</script>
 </html>
