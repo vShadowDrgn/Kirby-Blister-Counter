@@ -14,7 +14,7 @@ def index():
 def statistik():
     return render_template("statistik.html")
 
-@app.route('/increase_counter')
+@app.route('/increase_counter', methods=['POST'])
 def increase_counter():
     database.increase_counter()
     return jsonify({"success": True, "message": "Erfolgreich gezählt"})
