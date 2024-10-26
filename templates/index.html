@@ -23,9 +23,13 @@
                 margin-top: 80px;
             }
             .mycontainer1 {
-                width: 10%;
+                width: 4.2%;
                 float: left;
                 align-items: center;
+            }
+            .correction {
+                width: 2%;
+                float: left;
             }
             .headline {
                 background-color: rgb(4, 36, 73);
@@ -56,6 +60,14 @@
                 width: 10%;
                 padding: 10px;
             }
+            #increase {
+                width: 30px;
+                height: 160px;
+            }
+            #decrease {
+                width: 30px;
+                height: 160px;
+            }
             </style>
     </head>
 <body>
@@ -71,14 +83,17 @@
         <p>Das sind Y Punkte.</p>
     </div>
     <div class="mycontainer1">
-        <div style="height: 300px; width: 100px; border: 5px solid black; position: relative;" >
+        <div style="height: 310px; width: 100px; border: 5px solid black; position: relative;" >
             <div style="background-color: aqua; width: 100px; height: 200px; bottom: 0; position: absolute;">
             </div>
             <p style="position: absolute; margin-top: 130px; margin-left: 30px;">50</p>
         </div>
         <button id="reset" style="position: relative;">Reset</button>
     </div>
-
+    <div class="correction">
+        <button id="increase">+</button>
+        <button id="decrease">-</button>
+    </div>
     <div class="text2">
         <p>Das sind (Z/1000*30kg) gespartes Plastik.</p>
         <p>(A/1000*150kg) eingespartes CO²</p> 
@@ -100,23 +115,32 @@
 
 
 </body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script>
-    
-if (value="water") {
-    50*0,03=33,33
-    50*0=
-}
-if (value="cola") {
-    50*0,69=
-    50*5,3=
-}
-if (value="sprite") {
-    50*0,69=
-    50*3,95=
-}
-if (value="juice") {
-    50*0,06=
-    50*4,85=
-}
+
+$(document).on("click", "#increase", function() {
+    $.post("/increase_counter", function(response) {
+        console.log(response)
+    });
+});
+
+// if (value="water") {
+//     50*0,03=33,33
+//     50*0=
+// }
+// if (value="cola") {
+//     50*0,69=
+//     50*5,3=
+// }
+// if (value="sprite") {
+//     50*0,69=
+//     50*3,95=
+// }
+// if (value="juice") {
+//     50*0,06=
+//     50*4,85=
+// }
 </script>
 </html>

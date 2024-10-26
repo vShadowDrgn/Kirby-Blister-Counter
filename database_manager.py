@@ -41,5 +41,31 @@ class Dao:
 
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
+    
+    def increase_counter(self):
+        try:
+            conn, cursor = self.get_db_connection()
+
+            sql = """INSERT INTO counter (action) VALUES ('insert')"""       
+            cursor.execute(sql)
+            conn.commit()
+            conn.close()
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
+
+    def reset_counter(self):
+        try:
+            conn, cursor = self.get_db_connection()    
+
+            sql = """INSERT INTO counter (action) VALUES ('reset')"""       
+            cursor.execute(sql)
+            conn.commit()
+            conn.close()
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
+            
+    
 
 db = Dao("database.db")
