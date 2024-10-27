@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    </head>
+<body>
+    
+    <div class="headline">
+        <a href="/" class="headtext">Waterdrop Blister Counter</a>
+        <a href="/statistik" class="statistic">Statistik</a>
+    </div>
+
+    {% block content %}{% endblock %}
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+
+$(document).on("click", "#increase", function() {
+    $.post("/increase_counter", function(response) {
+        console.log(response)
+    });
+});
+
+// if (value="water") {
+//     50*0,03=33,33
+//     50*0=
+// }
+// if (value="cola") {
+//     50*0,69=
+//     50*5,3=
+// }
+// if (value="sprite") {
+//     50*0,69=
+//     50*3,95=
+// }
+// if (value="juice") {
+//     50*0,06=
+//     50*4,85=
+// }
+</script>
+</html>

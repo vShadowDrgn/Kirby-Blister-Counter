@@ -1,0 +1,94 @@
+body {
+    margin: 0px;
+    font-size: 30px;
+}
+.headline {
+    background-color: rgb(4, 36, 73);
+    margin: 0px;
+    overflow: auto;
+    width: 100%;
+}
+h1 {
+    padding: 10px;
+    margin: 0px;
+    font-size: 70px;
+    color: azure;
+    width: 60%;
+    float: left;
+}
+.headtext {
+    font-size: 70px;
+    float: left;
+    background-color: rgb(4, 36, 73);
+    color: azure;
+    width: 70%;
+    padding: 10px;
+}
+.statistic {
+    font-size: 70px;
+    float: right;
+    background-color: rgb(4, 36, 73);
+    color: azure;
+    width: 10%;
+    padding: 10px;
+}
+.wrapper {
+    width:100%;
+    overflow:auto;
+    padding: 10px;
+    display: flex;
+}
+.text-left {
+    float:left;
+    margin-left: 25px;
+    margin-top: 50px;
+    width: 25%;
+}
+.currentcounter {
+    width: 4.2%;
+    float: left;
+    align-items: center;
+}
+.watercontainer {
+    height: 310px;
+    width: 90%;
+    border: 5px solid black;
+    position: relative;
+}
+.water {
+    background-color: aqua;
+    width: 90%;
+    height: 200px;
+    bottom: 0;
+    position: absolute;
+    padding: 5px;
+}
+.watertext {
+    position: absolute;
+    margin-top: 100%;
+    margin-left: 35%;
+}
+#reset {
+    font-size: 25px;
+    margin-left: 5%;
+}
+.text-right {
+    width: 30%;
+    float: left;
+    margin-top: 80px;
+}
+.correction {
+    width: 2%;
+    float: left;
+}
+#increase {
+    width: 30px;
+    height: 160px;
+}
+#decrease {
+    width: 30px;
+    height: 160px;
+}
+#drinks {
+    font-size: 25px;
+}

@@ -1,146 +1,40 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <style>
-             body {
-                margin: 0px;
-                font-size: 30px;
-            }
-            .mycontainer {
-              width:100%;
-              overflow:auto;
-              padding: 10px;
-            }
-            .text1 {
-              width: 25%;
-              float:left;
-              margin-left: 25px;
-              margin-top: 50px;
-            }
-            .text2 {
-                width: 30%;
-                float: left;
-                margin-top: 80px;
-            }
-            .mycontainer1 {
-                width: 4.2%;
-                float: left;
-                align-items: center;
-            }
-            .correction {
-                width: 2%;
-                float: left;
-            }
-            .headline {
-                background-color: rgb(4, 36, 73);
-                margin: 0px;
-                overflow: auto;
-                width: 100%;
-            }
-            h1 {
-                padding: 10px;
-                margin: 0px;
-                font-size: 70px;
-                color: azure;
-                width: 60%;
-                float: left;
-            }
-            #reset {
-                font-size: 25px;
-                margin-left: 5%;
-            }
-            #drinks {
-                font-size: 25px;
-            }
-            .statistic {
-                font-size: 70px;
-                float: right;
-                background-color: rgb(4, 36, 73);
-                color: azure;
-                width: 10%;
-                padding: 10px;
-            }
-            #increase {
-                width: 30px;
-                height: 160px;
-            }
-            #decrease {
-                width: 30px;
-                height: 160px;
-            }
-            </style>
-    </head>
-<body>
-<div class="headline">
-    <h1>Waterdrop Blister Counter</h1>
-    <a href="/statistik" class="statistic">Statistik</a>
-</div>
+{% extends "base.html" %}
+{% block content %}
 
-<div class="mycontainer">
-    <div class="text1">
-        <p>Du hast bereits</p>
-        <p>Blister eingeworfen.</p>
-        <p>Das sind Y Punkte.</p>
-    </div>
-    <div class="mycontainer1">
-        <div style="height: 310px; width: 90%; border: 5px solid black; position: relative;" >
-            <div style="background-color: aqua; width: 100%; height: 200px; bottom: 0; position: absolute;">
-            </div>
-            <p style="position: absolute; margin-top: 100%; margin-left: 35%;">50</p>
+    <div class="wrapper">
+        <div class="text-left">
+            <p>Du hast bereits</p>
+            <p>Blister eingeworfen.</p>
+            <p>Das sind Y Punkte.</p>
         </div>
-        <button id="reset" style="position: relative;">Reset</button>
+        <div class="currentcounter">
+            <div class="watercontainer" >
+                <div class="water">
+                </div>
+                <p class="watertext">50</p>
+            </div>
+            <button id="reset" style="position: relative;">Reset</button>
+        </div>
+        <div class="correction">
+            <button id="increase">+</button>
+            <button id="decrease">-</button>
+        </div>
+        <div class="text-right">
+            <p>Das sind (Z/1000*30kg) gespartes Plastik.</p>
+            <p>(A/1000*150kg) eingespartes CO²</p> 
+        </div>
     </div>
-    <div class="correction">
-        <button id="increase">+</button>
-        <button id="decrease">-</button>
+
+    <div>
+        <!-- <p>Geld gespart im Vergleich zu B : C €.</p> -->
+        <label for="drinks">Geld gespart im Vergleich zu:</label>
+        <select name="drinks" id="drinks">
+            <option value="water">Wasser</option>
+            <option value="cola">Coca Cola</option>
+            <option value="sprite">Sprite</option>
+            <option value="juice">Apfelsaft</option>
+        </select>
+        <label for="drinks">:C € (Vergleich zu 500ml Flaschen!)</label>
+        <p>Zucker gespart: D g</p>
     </div>
-    <div class="text2">
-        <p>Das sind (Z/1000*30kg) gespartes Plastik.</p>
-        <p>(A/1000*150kg) eingespartes CO²</p> 
-    </div>
-</div>
-
-<div>
-    <!-- <p>Geld gespart im Vergleich zu B : C €.</p> -->
-    <label for="drinks">Geld gespart im Vergleich zu:</label>
-    <select name="drinks" id="drinks">
-        <option value="water">Wasser</option>
-        <option value="cola">Coca Cola</option>
-        <option value="sprite">Sprite</option>
-        <option value="juice">Apfelsaft</option>
-      </select>
-    <label for="drinks">:C € (Vergleich zu 500ml Flaschen!)</label>
-    <p>Zucker gespart: D g</p>
-</div>
-
-
-</body>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<script>
-
-$(document).on("click", "#increase", function() {
-    $.post("/increase_counter", function(response) {
-        console.log(response)
-    });
-});
-
-// if (value="water") {
-//     50*0,03=33,33
-//     50*0=
-// }
-// if (value="cola") {
-//     50*0,69=
-//     50*5,3=
-// }
-// if (value="sprite") {
-//     50*0,69=
-//     50*3,95=
-// }
-// if (value="juice") {
-//     50*0,06=
-//     50*4,85=
-// }
-</script>
-</html>
+{% endblock %}
