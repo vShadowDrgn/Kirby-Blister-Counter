@@ -8,6 +8,7 @@ database = Dao("database.db")
 
 @app.route('/')
 def index():
+    print(database.get_count())
     return render_template("index.html")
 
 @app.route('/statistik')

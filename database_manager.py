@@ -83,4 +83,42 @@ class Dao:
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
 
+    def get_count(self):
+        try:
+            conn, cursor = self.get_db_connection()
+
+            sql = """SELECT COUNT(id)
+                FROM counter
+                WHERE action='insert'"""
+            total_count = cursor.execute(sql).fetchone()
+            conn.close()
+            if total_count:
+                return total_count[0]
+            else:
+                return None
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
+
+    def get_current_count(self):
+        try:
+            conn, cursor = self.get_db_connection()
+
+            sql = """SELECT COUNT(id)
+                FROM counter
+                WHERE id>(
+                    SELECT MAX(id)
+                    FROM counter
+                    WHERE action='reset'
+                )"""
+            current_count = cursor.execute(sql).fetchone()
+            conn.close()
+            if current_count:
+                return current_count[0]
+            else:
+                return None
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
+
 db = Dao("database.db")
