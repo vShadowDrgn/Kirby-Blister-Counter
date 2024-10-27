@@ -14,7 +14,6 @@ h1 {
     font-size: 70px;
     color: azure;
     width: 60%;
-    float: left;
 }
 .headtext {
     font-size: 70px;
@@ -39,18 +38,22 @@ h1 {
     display: flex;
 }
 .text-left {
-    float:left;
     margin-left: 25px;
     margin-top: 50px;
     width: 25%;
 }
-.currentcounter {
-    width: 4.2%;
+.current-counter {
+    width: 8%;
     float: left;
     align-items: center;
 }
+.current-counter-body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
 .watercontainer {
-    height: 310px;
+    height: 320px;
     width: 90%;
     border: 5px solid black;
     position: relative;
@@ -70,16 +73,19 @@ h1 {
 }
 #reset {
     font-size: 25px;
-    margin-left: 5%;
+    margin-top: 10px;
 }
 .text-right {
     width: 30%;
     float: left;
     margin-top: 80px;
+    margin-left: 10px;
 }
 .correction {
-    width: 2%;
-    float: left;
+    display: flex;
+    margin-left: 10px;
+    gap: 10px;
+    flex-direction: column;
 }
 #increase {
     width: 30px;
