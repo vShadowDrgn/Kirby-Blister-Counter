@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
 <body>
-    
     <div class="headline">
         <a href="/" class="headtext">Waterdrop Blister Counter</a>
         <a href="/statistik" class="statistic">Statistik</a>
@@ -17,12 +16,24 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
+$(document).on("click", "#reset", function() {
+    $.post("/reset_counter", function(response) {
+        console.log(response)
+    });
+});
 
 $(document).on("click", "#increase", function() {
     $.post("/increase_counter", function(response) {
         console.log(response)
     });
 });
+
+$(document).on("click", "#decrease", function() {
+    $.post("/decrease_counter", function(response) {
+        console.log(response)
+    });
+});
+
 
 // if (value="water") {
 //     50*0,03=33,33

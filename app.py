@@ -14,10 +14,20 @@ def index():
 def statistik():
     return render_template("statistik.html")
 
+@app.route('/reset_counter', methods=['POST'])
+def reset_counter():
+    database.reset_counter()
+    return jsonify({"success": True, "message": "Erfolgreich geleert"})
+
 @app.route('/increase_counter', methods=['POST'])
 def increase_counter():
     database.increase_counter()
     return jsonify({"success": True, "message": "Erfolgreich gezählt"})
+
+@app.route('/decrease_counter', methods=['POST'])
+def decrease_counter():
+    database.decrease_counter()
+    return jsonify({"success": True, "message": "Erfolgreich abgezogen"})
 
 if __name__ == "__main__":
     #t = Thread(target=ir_loop, args=(database,))
