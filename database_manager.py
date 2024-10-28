@@ -83,7 +83,7 @@ class Dao:
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
 
-    def get_count(self):
+    def get_total_count(self):
         try:
             conn, cursor = self.get_db_connection()
 

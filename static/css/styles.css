@@ -43,7 +43,7 @@ h1 {
     width: 25%;
 }
 .current-counter {
-    width: 8%;
+    width: 5%;
     float: left;
     align-items: center;
 }
@@ -53,23 +53,23 @@ h1 {
     justify-content: space-between;
 }
 .watercontainer {
-    height: 320px;
+    height: 310px;
     width: 90%;
     border: 5px solid black;
     position: relative;
 }
 .water {
     background-color: aqua;
-    width: 90%;
+    width: 89%;
     height: 200px;
     bottom: 0;
     position: absolute;
     padding: 5px;
 }
-.watertext {
+#current_count_span {
     position: absolute;
-    margin-top: 100%;
-    margin-left: 35%;
+    margin-top: 200%;
+    margin-left: 30%;
 }
 #reset {
     font-size: 25px;
@@ -78,21 +78,20 @@ h1 {
 .text-right {
     width: 30%;
     float: left;
-    margin-top: 80px;
+    margin-top: 20px;
     margin-left: 10px;
 }
 .correction {
     display: flex;
-    margin-left: 10px;
-    gap: 10px;
     flex-direction: column;
+    width: 25%;
 }
 #increase {
-    width: 30px;
+    /* width: 8%; */
     height: 160px;
 }
 #decrease {
-    width: 30px;
+    /* width: 8%; */
     height: 160px;
 }
 #drinks {

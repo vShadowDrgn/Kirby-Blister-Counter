@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-
     <div class="wrapper">
         <div class="text-left">
             <p>Du hast bereits</p>
             <p>Blister eingeworfen.</p>
-            <p>Das sind Y Punkte.</p>
+            <p>Das sind <span id="points_span"></span> Punkte.</p>
         </div>
         <div class="current-counter">
             <div class="current-counter-body">
                 <div class="watercontainer" >
                     <div class="water">
                     </div>
-                    <p class="watertext">50</p>
+                    <span id="current_count_span"></span>
                 </div>
                 <div class="correction">
                     <button id="increase">+</button>
@@ -22,8 +21,9 @@
             <button id="reset" style="position: relative;">Reset</button>
         </div>
         <div class="text-right">
-            <p>Das sind (Z/1000*30kg) gespartes Plastik.</p>
-            <p>(A/1000*150kg) eingespartes CO²</p>
+            <p>Du hast bisher insgesamt <span id="total_count_span"></span> Blister gesammelt.</p>
+            <p>Das sind <span id="plastic_span"></span>kg gespartes Plastik.</p>
+            <p>Und <span id="carbon_span"></span>kg eingespartes CO²</p>
         </div>
     </div>
 
@@ -40,3 +40,56 @@
         <p>Zucker gespart: D g</p>
     </div>
 {% endblock %}
+
+{% block button %}
+    <script>
+        $(document).on("click", "#reset", function() {
+            $.post("/reset_counter", function(response) {
+                console.log(response)
+            });
+        });
+
+        $(document).on("click", "#increase", function() {
+            $.post("/increase_counter", function(response) {
+                console.log(response)
+            });
+        });
+
+        $(document).on("click", "#decrease", function() {
+            $.post("/decrease_counter", function(response) {
+                console.log(response)
+            });
+        });
+
+        function get_counter() {
+            $.get("/get_counter", function(response) {
+                $("#total_count_span").text(response.total_count);
+                $("#current_count_span").text(response.current_count);
+                $("#points_span").text(response.current_count*5)
+                $("#plastic_span").text((response.total_count/1000)*30);
+                $("#carbon_span").text((response.total_count/1000)*150);
+            });
+        };
+
+        $(document).ready(function() {
+            get_counter();
+        });
+    </script>
+{% endblock %}
+
+// if (value="water") {
+    //     50*0,03=33,33
+    //     50*0=
+    // }
+    // if (value="cola") {
+    //     50*0,69=
+    //     50*5,3=
+    // }
+    // if (value="sprite") {
+    //     50*0,69=
+    //     50*3,95=
+    // }
+    // if (value="juice") {
+    //     50*0,06=
+    //     50*4,85=
+    // }

@@ -8,7 +8,6 @@ database = Dao("database.db")
 
 @app.route('/')
 def index():
-    print(database.get_count())
     return render_template("index.html")
 
 @app.route('/statistik')
@@ -29,6 +28,12 @@ def increase_counter():
 def decrease_counter():
     database.decrease_counter()
     return jsonify({"success": True, "message": "Erfolgreich abgezogen"})
+
+@app.route('/get_counter', methods=['GET'])
+def get_counter():
+    total_count = database.get_total_count()
+    current_count = database.get_current_count()
+    return jsonify({"success": True, "message": "Hier sind deine Werte", "total_count": total_count, "current_count": current_count})
 
 if __name__ == "__main__":
     #t = Thread(target=ir_loop, args=(database,))
