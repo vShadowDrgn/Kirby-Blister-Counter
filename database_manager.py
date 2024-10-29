@@ -107,7 +107,7 @@ class Dao:
             sql = """SELECT COUNT(id)
                 FROM counter
                 WHERE id>(
-                    SELECT MAX(id)
+                    SELECT COALESCE(MAX(id), -1)
                     FROM counter
                     WHERE action='reset'
                 )"""
