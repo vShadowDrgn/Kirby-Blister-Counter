@@ -43,18 +43,18 @@
         </tr>
         <tr>
             <td>Sprite</td>
-            <td><span id="sprite_geld_sparen">€</span>€</td>
-            <td><span id="sprite_zucker_sparen">g</span></td>
+            <td><span id="sprite_geld_sparen"></span>€</td>
+            <td><span id="sprite_zucker_sparen"></span>g</td>
         </tr>
         <tr>
             <td>Apfelsaft</td>
-            <td><span id="saft_geld_sparen">€</span></td>
-            <td><span id="saft_zucker_sparen">g</span></td>
+            <td><span id="saft_geld_sparen"></span>€</td>
+            <td><span id="saft_zucker_sparen"></span>g</td>
         </tr>
         <tr>
             <td>Eistee Pfirisch</td>
-            <td>-<span id="eistee_geld_sparen">€</span></td>
-            <td><span id="eistee_zucker_sparen">g</span></td>
+            <td>-<span id="eistee_geld_sparen"></span>€</td>
+            <td><span id="eistee_zucker_sparen"></span>g</td>
         </tr>
     </table>
 
@@ -92,15 +92,19 @@
             });
         });
 
+        function round(number) {
+            return (Math.round(number*100))/100
+        }
+
         function get_counter() {
             $.get("/get_counter", function(response) {
                 $("#total_count_span").text(response.total_count);
                 $("#current_count_span").text(response.current_count);
                 $("#points_span").text(response.current_count*5)
                 $("#plastic_span").text((response.total_count/1000)*30);
-                $("#carbon_span").text((response.total_count/1000)*150);
+                $("#carbon_span").text(round((response.total_count/1000)*150));
                 $("#wasser_geld_span").text(response.total_count*0.03);
-                $("#cola_geld_sparen").text(response.total_count*0.69);
+                $("#cola_geld_sparen").text(round(response.total_count*0.69));
                 $("#cola_zucker_sparen").text(respone.total_count*5.3);
                 $("#sprite_geld_sparen").text(response.total_count*0.69);
                 $("#sprite_zucker_sparen").text(response.total_count*3.95);
