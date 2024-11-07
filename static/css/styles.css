@@ -93,6 +93,7 @@ h1 {
 }
 td {
     width: 220px;
+    text-align: center;
 }
 #drinks {
     font-size: 25px;

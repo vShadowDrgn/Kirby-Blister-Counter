@@ -88,17 +88,17 @@
                 $("#total_count_span").text(response.total_count);
                 $("#current_count_span").text(response.current_count);
                 $("#points_span").text(response.current_count*5)
-                $("#plastic_span").text((response.total_count/1000)*30);
+                $("#plastic_span").text(round((response.total_count/1000)*30));
                 $("#carbon_span").text(round((response.total_count/1000)*150));
-                $("#wasser_geld_span").text(response.total_count*0.03);
+                $("#wasser_geld_span").text(round(response.total_count*0.03));
                 $("#cola_geld_sparen").text(round(response.total_count*0.69));
-                $("#cola_zucker_sparen").text(respone.total_count*5.3);
-                $("#sprite_geld_sparen").text(response.total_count*0.69);
-                $("#sprite_zucker_sparen").text(response.total_count*3.95);
-                $("#saft_geld_sparen").text(respone.total_count*0.06);
-                $("#saft_zucker_sparen").text(response.total_count*4.85);
-                $("#eistee_geld_sparen").text(response.total_count*0.09);
-                $("#eistee_zucker_sparen").text(response.total_count*6);
+                $("#cola_zucker_sparen").text(round(response.total_count*5.3));
+                $("#sprite_geld_sparen").text(round(response.total_count*0.69));
+                $("#sprite_zucker_sparen").text(round(response.total_count*3.95));
+                $("#saft_geld_sparen").text(round(response.total_count*0.06));
+                $("#saft_zucker_sparen").text(round(response.total_count*4.85));
+                $("#eistee_geld_sparen").text(round(response.total_count*0.09));
+                $("#eistee_zucker_sparen").text(round(response.total_count*6));
             });
         };
 
