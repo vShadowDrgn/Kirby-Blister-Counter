@@ -91,6 +91,9 @@ h1 {
     /* width: 8%; */
     height: 160px;
 }
+td {
+    width: 220px;
+}
 #drinks {
     font-size: 25px;
 }
