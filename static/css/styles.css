@@ -94,3 +94,20 @@ h1 {
 #drinks {
     font-size: 25px;
 }
+.month {
+    height: 300px;
+    overflow: auto;
+}
+.year {
+    height: 300px;
+    overflow: auto;
+}
+.statistic {
+    width: 50%;
+    float: left;
+}
+.information {
+    width: 40%;
+    float: right;
+    margin-top: 100px;
+}
