@@ -5,10 +5,11 @@
             <p>Du hast bereits</p>
             <p>Blister eingeworfen.</p>
             <p>Das sind <span id="points_span"></span> Punkte.</p>
+            <p id="dose_voll">Die Dose ist voll, bitte ausleeren!!</p>
         </div>
         <div class="current-counter">
-            <div class="watercontainer" >
-                <div class="water">
+            <div class="watercontainer">
+                <div id="water">
                 </div>
                 <span id="current_count_span"></span>
             </div>
@@ -21,42 +22,44 @@
         <div class="text-right">
             <p>Du hast bisher insgesamt <span id="total_count_span"></span> Blister gesammelt.</p>
             <p>Das sind <span id="plastic_span"></span>kg gespartes Plastik.</p>
-            <p>Und <span id="carbon_span"></span>kg eingespartes CO²</p>
+            <p>Und <span id="carbon_span"></span>kg eingespartes CO².</p>
         </div>
     </div>
 
-    <table>
-        <tr>
-            <th>Getränk</th>
-            <th>gespartes Geld</th>
-            <th>gesparter Zucker</th>
-        </tr>
-        <tr>
-            <td>Wasser</td>
-            <td><span id="wasser_geld_span"></span>€</td>
-            <td>0g</td>
-        </tr>
-        <tr>
-            <td>Cola</td>
-            <td><span id="cola_geld_sparen"></span>€</td>
-            <td><span id="cola_zucker_sparen"></span>g</td>
-        </tr>
-        <tr>
-            <td>Sprite</td>
-            <td><span id="sprite_geld_sparen"></span>€</td>
-            <td><span id="sprite_zucker_sparen"></span>g</td>
-        </tr>
-        <tr>
-            <td>Apfelsaft</td>
-            <td><span id="saft_geld_sparen"></span>€</td>
-            <td><span id="saft_zucker_sparen"></span>g</td>
-        </tr>
-        <tr>
-            <td>Eistee Pfirisch</td>
-            <td>-<span id="eistee_geld_sparen"></span>€</td>
-            <td><span id="eistee_zucker_sparen"></span>g</td>
-        </tr>
-    </table>
+    <div class="drinks">
+        <table>
+            <tr>
+                <th>Getränk</th>
+                <th>gespartes Geld</th>
+                <th>gesparter Zucker</th>
+            </tr>
+            <tr>
+                <td>Wasser</td>
+                <td><span id="wasser_geld_span"></span>€</td>
+                <td>0g</td>
+            </tr>
+            <tr>
+                <td>Cola</td>
+                <td><span id="cola_geld_sparen"></span>€</td>
+                <td><span id="cola_zucker_sparen"></span>g</td>
+            </tr>
+            <tr>
+                <td>Sprite</td>
+                <td><span id="sprite_geld_sparen"></span>€</td>
+                <td><span id="sprite_zucker_sparen"></span>g</td>
+            </tr>
+            <tr>
+                <td>Apfelsaft</td>
+                <td><span id="saft_geld_sparen"></span>€</td>
+                <td><span id="saft_zucker_sparen"></span>g</td>
+            </tr>
+            <tr>
+                <td>Eistee Pfirisch</td>
+                <td>-<span id="eistee_geld_sparen"></span>€</td>
+                <td><span id="eistee_zucker_sparen"></span>g</td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}
 
 {% block button %}
@@ -87,7 +90,11 @@
             $.get("/get_counter", function(response) {
                 $("#total_count_span").text(response.total_count);
                 $("#current_count_span").text(response.current_count);
-                $("#points_span").text(response.current_count*5)
+                $("#water").height(response.current_count);
+                if (response.current_count>300) {
+                    $("#dose_voll").show()
+                }
+                $("#points_span").text(response.current_count*5);
                 $("#plastic_span").text(round((response.total_count/1000)*30));
                 $("#carbon_span").text(round((response.total_count/1000)*150));
                 $("#wasser_geld_span").text(round(response.total_count*0.03));
@@ -103,7 +110,10 @@
         };
 
         $(document).ready(function() {
+            $("#dose_voll").hide();
             get_counter();
+            setInterval(get_counter, 10000);
         });
+
     </script>
 {% endblock %}

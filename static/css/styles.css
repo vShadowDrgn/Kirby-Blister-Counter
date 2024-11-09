@@ -57,10 +57,10 @@ h1 {
     justify-content: center;
     align-items: center;
 }
-.water {
+#water {
     background-color: aqua;
     width: 100%;
-    height: 200px;
+    /* height: 200px; */
     bottom: 0;
     position: absolute;
     padding: 5px;
@@ -75,7 +75,7 @@ h1 {
 .text-right {
     width: 30%;
     float: left;
-    margin-top: 20px;
+    margin-top: 50px;
     margin-left: 10px;
 }
 .correction {
@@ -114,4 +114,7 @@ td {
     width: 40%;
     float: right;
     margin-top: 100px;
+}
+.drinks {
+    margin-left: 200px;
 }
