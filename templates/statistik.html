@@ -6,11 +6,18 @@
 
     <div class="month">
         <div class="statistic">
-
+            <label for="months">Geld gespart im Vergleich zu:</label>
+            <select name="months" id="months">
+            <option value="water">Wasser</option>
+            <option value="cola">Coca Cola</option>
+            <option value="sprite">Sprite</option>
+            <option value="juice">Apfelsaft</option>
+            </select>
+            <label for="drinks">:C €</label>
         </div>
 
         <div class="information">
-            <p>Das sind diesen Monat insgesamt X BLister</p>
+            <p>Das sind im A insgesamt X BLister</p>
             <p>Y gespartes CO² &</p>
             <p>Z gespartes Plastik.</p>
         </div>
@@ -18,11 +25,20 @@
 
     <div class="year">
         <div class="statistic">
-
+            <label for="drinks">Geld gespart im Vergleich zu:</label>
+            <select name="drinks" id="drinks">
+            <option value="water">Wasser</option>
+            <option value="cola">Coca Cola</option>
+            <option value="sprite">Sprite</option>
+            <option value="juice">Apfelsaft</option>
+            </select>
+            <label for="drinks">:C €</label>
         </div>
 
         <div class="information">
-
+            <p>Das sind im Jahr X insgesamt Y Blister.</p>
+            <p>Z gespartes CO² &</p>
+            <p>A gespartes Plastik.</p>
         </div>
     </div>
 {% endblock %}

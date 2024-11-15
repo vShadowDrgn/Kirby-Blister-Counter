@@ -91,7 +91,7 @@
                 $("#total_count_span").text(response.total_count);
                 $("#current_count_span").text(response.current_count);
                 $("#water").height(response.current_count);
-                if (response.current_count>300) {
+                if (response.current_count>200) {
                     $("#dose_voll").show()
                 }
                 $("#points_span").text(response.current_count*5);
