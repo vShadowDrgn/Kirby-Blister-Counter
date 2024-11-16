@@ -1,31 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-
-    <h1>Kommt Noch NH!</h1>
-    <h1>Ich hasse Zaubertinte, aber das ist toll!!</h1>
-
     <div class="month">
-        <div class="statistic">
-            <label for="months">Geld gespart im Vergleich zu:</label>
+        <div class="chart">
+            <canvas id="months_chart"></canvas>
+        </div>
+        <div class="statistics">
+            <label for="months"></label>
             <select name="months" id="months">
-            <option value="water">Wasser</option>
-            <option value="cola">Coca Cola</option>
-            <option value="sprite">Sprite</option>
-            <option value="juice">Apfelsaft</option>
+            <option value="jan">Januar</option>
+            <option value="feb">Februar</option>
+            <option value="mar">März</option>
+            <option value="april">April</option>
+            <option value="may">Mai</option>
+            <option value="june">Juni</option>
+            <option value="july">Juli</option>
+            <option value="aug">August</option>
+            <option value="sep">Seotember</option>
+            <option value="oct">Oktober</option>
+            <option value="nov">November</option>
+            <option value="dec">Dezember</option>
             </select>
-            <label for="drinks">:C €</label>
+            <label for="drinks"></label>
         </div>
 
         <div class="information">
-            <p>Das sind im A insgesamt X BLister</p>
+            <p>Das sind im A insgesamt X Blister</p>
             <p>Y gespartes CO² &</p>
             <p>Z gespartes Plastik.</p>
         </div>
     </div>
 
-    <div class="year">
-        <div class="statistic">
-            <label for="drinks">Geld gespart im Vergleich zu:</label>
+    <!-- <div class="year">
+        <div class="statistics">
+            <label for="drinks"></label>
             <select name="drinks" id="drinks">
             <option value="water">Wasser</option>
             <option value="cola">Coca Cola</option>
@@ -40,5 +47,87 @@
             <p>Z gespartes CO² &</p>
             <p>A gespartes Plastik.</p>
         </div>
-    </div>
+    </div> -->
+{% endblock %}
+
+{% block additionaljs %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+    <script>
+        const labels = ["2023-11-01", "2023-11-02", "2023-11-03", "2023-11-04", "2023-11-05"];
+        const dataset = {
+            label: 'Wert pro Tag',
+            data: [12, 19, 3, 5, 2],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(150, 0, 0, 0.2)',
+            borderWidth: 2,
+            pointRadius: 4,
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            fill: true,
+            tension: 0.2
+        };
+
+        const barconfig = {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    ...dataset,
+                    backgroundColor: "rgba(150,150,250,0.4)",
+                    borderColor: "rgba(200,200,200,1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: "time",
+                        time: {
+                            unit: "day"
+                        },
+                        title: {
+                            display: true,
+                            text: "Datum"
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "Anzahl"
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Wert: ${context.raw}`;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        const months_chart  = new Chart(
+            $("#months_chart"),
+            barconfig
+        );
+
+        function get_monthly_statistics() {
+            $.get("/get_monthly_statistics", function(response) {
+                
+            });
+        };
+
+        $(document).ready(function() {
+            get_monthly_statistics();
+        });
+    </script>
 {% endblock %}

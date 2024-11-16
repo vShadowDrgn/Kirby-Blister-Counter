@@ -121,4 +121,25 @@ class Dao:
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
 
+    def get_monthly_statistics(self):
+        try:
+            conn, cursor = self.get_db_connection()
+
+            sql = """SELECT DATE(timestamp) AS day,
+                COUNT(*) AS number
+                FROM counter
+                WHERE action='insert'
+                AND strftime('%Y-%m', timestamp)='2024-11'
+                GROUP BY day
+                )"""
+            monthly_statistics = cursor.execute(sql).fetchall()
+            conn.close()
+            if monthly_statistics:
+                return monthly_statistics[0]
+            else:
+                return None
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
+
 db = Dao("database.db")

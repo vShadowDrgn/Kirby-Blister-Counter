@@ -35,6 +35,10 @@ def get_counter():
     current_count = database.get_current_count()
     return jsonify({"success": True, "message": "Hier sind deine Werte", "total_count": total_count, "current_count": current_count})
 
+@app.route('/get_monthly_statistics', methods=['GET'])
+def get_monthly_statistics():
+    pass
+
 if __name__ == "__main__":
     #t = Thread(target=ir_loop, args=(database,))
     #t.start()

@@ -62,7 +62,7 @@
     </div>
 {% endblock %}
 
-{% block button %}
+{% block additionaljs %}
     <script>
         $(document).on("click", "#reset", function() {
             $.post("/reset_counter", function(response) {
