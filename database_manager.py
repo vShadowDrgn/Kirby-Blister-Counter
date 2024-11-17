@@ -121,7 +121,7 @@ class Dao:
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
 
-    def get_monthly_statistics(self):
+    def get_monthly_statistics(self, year, month):
         try:
             conn, cursor = self.get_db_connection()
 
@@ -129,13 +129,14 @@ class Dao:
                 COUNT(*) AS number
                 FROM counter
                 WHERE action='insert'
-                AND strftime('%Y-%m', timestamp)='2024-11'
+                AND strftime('%Y-%m', timestamp)=?
                 GROUP BY day
-                )"""
-            monthly_statistics = cursor.execute(sql).fetchall()
+                """
+            monthly_statistics = cursor.execute(sql, (str(year)+'-'+str(month),)).fetchall()
+            print(monthly_statistics)
             conn.close()
             if monthly_statistics:
-                return monthly_statistics[0]
+                return monthly_statistics
             else:
                 return None
 

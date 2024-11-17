@@ -5,20 +5,19 @@
             <canvas id="months_chart"></canvas>
         </div>
         <div class="statistics">
-            <label for="months"></label>
-            <select name="months" id="months">
-            <option value="jan">Januar</option>
-            <option value="feb">Februar</option>
-            <option value="mar">März</option>
-            <option value="april">April</option>
-            <option value="may">Mai</option>
-            <option value="june">Juni</option>
-            <option value="july">Juli</option>
-            <option value="aug">August</option>
-            <option value="sep">Seotember</option>
-            <option value="oct">Oktober</option>
-            <option value="nov">November</option>
-            <option value="dec">Dezember</option>
+            <select id="months">
+            <option value="01">Januar</option>
+            <option value="02">Februar</option>
+            <option value="03">März</option>
+            <option value="04">April</option>
+            <option value="05">Mai</option>
+            <option value="06">Juni</option>
+            <option value="07">Juli</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Dezember</option>
             </select>
             <label for="drinks"></label>
         </div>
@@ -30,16 +29,18 @@
         </div>
     </div>
 
-    <!-- <div class="year">
+    <div class="year">
+        <div class="chart">
+            <canvas id="years_chart"></canvas>
+        </div>
+
         <div class="statistics">
-            <label for="drinks"></label>
-            <select name="drinks" id="drinks">
-            <option value="water">Wasser</option>
-            <option value="cola">Coca Cola</option>
-            <option value="sprite">Sprite</option>
-            <option value="juice">Apfelsaft</option>
+            <select id="years">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
             </select>
-            <label for="drinks">:C €</label>
         </div>
 
         <div class="information">
@@ -47,7 +48,7 @@
             <p>Z gespartes CO² &</p>
             <p>A gespartes Plastik.</p>
         </div>
-    </div> -->
+    </div>
 {% endblock %}
 
 {% block additionaljs %}
@@ -121,12 +122,26 @@
         );
 
         function get_monthly_statistics() {
-            $.get("/get_monthly_statistics", function(response) {
-                
+            year=$("#years").val()
+            // console.log(year)
+            month=$("#months").val()
+            // console.log(month)
+            $.get("/get_monthly_statistics?year="+year+"&month="+month, function(response) {
+                console.log(response)
             });
         };
 
+        $(document).on("change", ".statistics", function() {
+            get_monthly_statistics();
+        });
+
         $(document).ready(function() {
+            let currentYear = new Date().toISOString().slice(0, 4);
+            let currentMonth = new Date().toISOString().slice(5, 7);
+            // console.log(currentYear)
+            // console.log(currentMonth)
+            $("#years").val(currentYear)
+            $("#months").val(currentMonth)
             get_monthly_statistics();
         });
     </script>

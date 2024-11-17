@@ -37,7 +37,10 @@ def get_counter():
 
 @app.route('/get_monthly_statistics', methods=['GET'])
 def get_monthly_statistics():
-    pass
+    year=request.args.get("year", type=str)
+    month=request.args.get("month", type=str)
+    monthly_statistics = database.get_monthly_statistics(year, month)
+    return jsonify({"success": True, "monthly_statistics": monthly_statistics})
 
 if __name__ == "__main__":
     #t = Thread(target=ir_loop, args=(database,))
