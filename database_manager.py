@@ -121,6 +121,9 @@ class Dao:
         except sqlite3.Error as err:
             sql_error_handler(err,traceback.format_exc())
 
+    def get_yearly_statistics(self, year):
+        pass
+
     def get_monthly_statistics(self, year, month):
         try:
             conn, cursor = self.get_db_connection()
@@ -133,10 +136,9 @@ class Dao:
                 GROUP BY day
                 """
             monthly_statistics = cursor.execute(sql, (str(year)+'-'+str(month),)).fetchall()
-            print(monthly_statistics)
             conn.close()
             if monthly_statistics:
-                return monthly_statistics
+                return [list(i) for i in monthly_statistics]
             else:
                 return None
 

@@ -56,10 +56,9 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
     <script>
-        const labels = ["2023-11-01", "2023-11-02", "2023-11-03", "2023-11-04", "2023-11-05"];
         const dataset = {
             label: 'Wert pro Tag',
-            data: [12, 19, 3, 5, 2],
+            data: [],
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(150, 0, 0, 0.2)',
             borderWidth: 2,
@@ -72,7 +71,7 @@
         const barconfig = {
             type: "bar",
             data: {
-                labels: labels,
+                labels: [],
                 datasets: [{
                     ...dataset,
                     backgroundColor: "rgba(150,150,250,0.4)",
@@ -121,18 +120,22 @@
             barconfig
         );
 
-        function get_monthly_statistics() {
+        function get_statistics() {
             year=$("#years").val()
             // console.log(year)
             month=$("#months").val()
             // console.log(month)
-            $.get("/get_monthly_statistics?year="+year+"&month="+month, function(response) {
-                console.log(response)
+            $.get("/get_statistics?year="+year+"&month="+month, function(response) {
+                months_list=response.monthly_statistics.map(items => item[0])
+                console.log(months_list)
+                months_chart.data.labels=["2024-11-06", "2024-11-07"];
+                months_chart.data.datasets[0].data=[3,5];
+                months_chart.update();
             });
         };
 
         $(document).on("change", ".statistics", function() {
-            get_monthly_statistics();
+            get_statistics();
         });
 
         $(document).ready(function() {
@@ -142,7 +145,7 @@
             // console.log(currentMonth)
             $("#years").val(currentYear)
             $("#months").val(currentMonth)
-            get_monthly_statistics();
+            get_statistics();
         });
     </script>
 {% endblock %}
