@@ -23,9 +23,9 @@
         </div>
 
         <div class="information">
-            <p>Das sind im A insgesamt X Blister</p>
-            <p>Y gespartes CO² &</p>
-            <p>Z gespartes Plastik.</p>
+            <p>Das sind im <span id="month_text"></span> insgesamt <span id="month_all"></span> Blister</p>
+            <p><span id="month_co"></span>kg gespartes CO² &</p>
+            <p><span id="month_plastic"></span>kg gespartes Plastik.</p>
         </div>
     </div>
 
@@ -44,9 +44,9 @@
         </div>
 
         <div class="information">
-            <p>Das sind im Jahr X insgesamt Y Blister.</p>
-            <p>Z gespartes CO² &</p>
-            <p>A gespartes Plastik.</p>
+            <p>Das sind im Jahr <span id="year_text"></span> insgesamt <span id="year_all"></span> Blister.</p>
+            <p><span id="year_co"></span>kg gespartes CO² &</p>
+            <p><span id="year_plastic"></span>kg gespartes Plastik.</p>
         </div>
     </div>
 {% endblock %}
@@ -115,24 +115,52 @@
             }
         }
 
-        const months_chart  = new Chart(
+        const months_chart = new Chart(
             $("#months_chart"),
             barconfig
         );
 
+        const years_chart = new Chart(
+            $("#years_chart"),
+            barconfig
+        );
+
+        function round(number) {
+            return (Math.round(number*100))/100;
+        };
+
         function get_statistics() {
-            year=$("#years").val()
-            month=$("#months").val()
+            year = $("#years").val();
+            month = $("#months").val();
+            $("#month_text").text($("#months option:selected").text());
+            $("#year_text").text($("#years option:selected").text());
             $.get("/get_statistics?year="+year+"&month="+month, function(response) {
-                var month_list = []
-                var value_list = []
+                var month_list = [];
+                var month_value_list = [];
                 if (response.monthly_statistics) {
-                    months_list=response.monthly_statistics.map(item => item[0])
-                    value_list=response.monthly_statistics.map(item => item[1])
+                    month_list=response.monthly_statistics.map(item => item[0]);
+                    month_value_list=response.monthly_statistics.map(item => item[1]);
                 }
-                months_chart.data.labels = months_list;
-                months_chart.data.datasets[0].data = value_list;
+                months_chart.data.labels = month_list;
+                months_chart.data.datasets[0].data = month_value_list;
                 months_chart.update();
+                var month_sum = month_value_list.reduce((partialSum, a) => partialSum + a, 0);
+                $("#month_all").text(month_sum);
+                $("#month_co").text(round((month_sum/1000)*150));
+                $("#month_plastic").text(round((month_sum/1000)*30));
+                var year_list = [];
+                var year_value_list = [];
+                if (response.yearly_statistics) {
+                    year_list=response.yearly_statistics.map(item => item[0]);
+                    year_value_list=response.yearly_statistics.map(item => item[1]);
+                };
+                years_chart.data.labels = year_list;
+                years_chart.data.datasets[0].data = year_value_list;
+                years_chart.update();
+                var year_sum = year_value_list.reduce((partialSum, a) => partialSum + a, 0);
+                $("#year_all").text(month_sum);
+                $("#year_co").text(round((month_sum/1000)*150));
+                $("#year_plastic").text(round((month_sum/1000)*30));
             });
         };
 
@@ -143,8 +171,8 @@
         $(document).ready(function() {
             let currentYear = new Date().toISOString().slice(0, 4);
             let currentMonth = new Date().toISOString().slice(5, 7);
-            $("#years").val(currentYear)
-            $("#months").val(currentMonth)
+            $("#years").val(currentYear);
+            $("#months").val(currentMonth);
             get_statistics();
         });
     </script>

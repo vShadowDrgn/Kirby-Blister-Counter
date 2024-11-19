@@ -122,7 +122,25 @@ class Dao:
             sql_error_handler(err,traceback.format_exc())
 
     def get_yearly_statistics(self, year):
-        pass
+        try:
+            conn, cursor = self.get_db_connection()
+
+            sql = """SELECT strftime('%Y-%m', timestamp) AS month,
+                COUNT(*) AS number
+                FROM counter
+                WHERE action='insert'
+                AND strftime('%Y', timestamp)=?
+                GROUP BY month
+                """
+            yearly_statistics = cursor.execute(sql, (str(year),)).fetchall()
+            conn.close()
+            if yearly_statistics:
+                return [list(i) for i in yearly_statistics]
+            else:
+                return None
+
+        except sqlite3.Error as err:
+            sql_error_handler(err,traceback.format_exc())
 
     def get_monthly_statistics(self, year, month):
         try:

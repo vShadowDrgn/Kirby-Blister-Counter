@@ -40,6 +40,7 @@ def get_statistics():
     year=request.args.get("year", type=str)
     month=request.args.get("month", type=str)
     yearly_statistics = database.get_yearly_statistics(year)
+    print(yearly_statistics)
     monthly_statistics = database.get_monthly_statistics(year, month)
     return jsonify({"success": True, "yearly_statistics": yearly_statistics, "monthly_statistics": monthly_statistics})
 

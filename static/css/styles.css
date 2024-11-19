@@ -109,7 +109,7 @@ td {
     overflow: auto;
 }
 .chart {
-    width: 30%;
+    width: 700px;
     float: left;
 }
 .statistics {
