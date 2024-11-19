@@ -85,7 +85,7 @@
                     x: {
                         type: "time",
                         time: {
-                            unit: "day"
+                            unit: ""
                         },
                         title: {
                             display: true,
@@ -130,34 +130,39 @@
         };
 
         function get_statistics() {
-            year = $("#years").val();
-            month = $("#months").val();
+            var month_list = [];
+            var month_value_list = [];
+            var year_list = [];
+            var year_value_list = [];
+            const year = $("#years").val();
+            const month = $("#months").val();
+
             $("#month_text").text($("#months option:selected").text());
             $("#year_text").text($("#years option:selected").text());
+
             $.get("/get_statistics?year="+year+"&month="+month, function(response) {
-                var month_list = [];
-                var month_value_list = [];
                 if (response.monthly_statistics) {
                     month_list=response.monthly_statistics.map(item => item[0]);
                     month_value_list=response.monthly_statistics.map(item => item[1]);
                 }
+                var month_sum = month_value_list.reduce((partialSum, a) => partialSum + a, 0);
+                months_chart.options.scales.x.time.unit = "day";
                 months_chart.data.labels = month_list;
                 months_chart.data.datasets[0].data = month_value_list;
                 months_chart.update();
-                var month_sum = month_value_list.reduce((partialSum, a) => partialSum + a, 0);
                 $("#month_all").text(month_sum);
                 $("#month_co").text(round((month_sum/1000)*150));
                 $("#month_plastic").text(round((month_sum/1000)*30));
-                var year_list = [];
-                var year_value_list = [];
+
                 if (response.yearly_statistics) {
                     year_list=response.yearly_statistics.map(item => item[0]);
                     year_value_list=response.yearly_statistics.map(item => item[1]);
                 };
+                var year_sum = year_value_list.reduce((partialSum, a) => partialSum + a, 0);
+                years_chart.options.scales.x.time.unit = "month";
                 years_chart.data.labels = year_list;
                 years_chart.data.datasets[0].data = year_value_list;
                 years_chart.update();
-                var year_sum = year_value_list.reduce((partialSum, a) => partialSum + a, 0);
                 $("#year_all").text(month_sum);
                 $("#year_co").text(round((month_sum/1000)*150));
                 $("#year_plastic").text(round((month_sum/1000)*30));
