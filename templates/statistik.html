@@ -122,14 +122,16 @@
 
         function get_statistics() {
             year=$("#years").val()
-            // console.log(year)
             month=$("#months").val()
-            // console.log(month)
             $.get("/get_statistics?year="+year+"&month="+month, function(response) {
-                months_list=response.monthly_statistics.map(items => item[0])
-                console.log(months_list)
-                months_chart.data.labels=["2024-11-06", "2024-11-07"];
-                months_chart.data.datasets[0].data=[3,5];
+                var month_list = []
+                var value_list = []
+                if (response.monthly_statistics) {
+                    months_list=response.monthly_statistics.map(item => item[0])
+                    value_list=response.monthly_statistics.map(item => item[1])
+                }
+                months_chart.data.labels = months_list;
+                months_chart.data.datasets[0].data = value_list;
                 months_chart.update();
             });
         };
@@ -141,8 +143,6 @@
         $(document).ready(function() {
             let currentYear = new Date().toISOString().slice(0, 4);
             let currentMonth = new Date().toISOString().slice(5, 7);
-            // console.log(currentYear)
-            // console.log(currentMonth)
             $("#years").val(currentYear)
             $("#months").val(currentMonth)
             get_statistics();
