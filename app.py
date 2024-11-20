@@ -1,7 +1,10 @@
 from threading import Thread
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from database_manager import Dao # type: ignore
-#from hardware import ir_loop # type: ignore
+import os
+
+if "RASPBERRY_PI" in os.environ:
+    from hardware import ir_loop # type: ignore
 
 app = Flask(__name__)
 database = Dao("database.db")
@@ -45,6 +48,9 @@ def get_statistics():
     return jsonify({"success": True, "yearly_statistics": yearly_statistics, "monthly_statistics": monthly_statistics})
 
 if __name__ == "__main__":
-    #t = Thread(target=ir_loop, args=(database,))
-    #t.start()
-    app.run(host="0.0.0.0", debug=True) #, use_reloader=False)
+    if "RASPBERRY_PI" in os.environ :
+        t = Thread(target=ir_loop, args=(database,))
+        t.start()
+        app.run(host="0.0.0.0", debug=False , use_reloader=False)
+    else:
+        app.run(host="0.0.0.0", debug=True) #, use_reloader=False)
