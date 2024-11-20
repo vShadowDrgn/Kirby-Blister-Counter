@@ -75,10 +75,10 @@ h1 {
     margin: 10px auto 0px auto;
 }
 .text-right {
-    width: 30%;
+    width: 700px;
     float: left;
     margin-top: 50px;
-    margin-left: 10px;
+    margin-left: 100px;
 }
 .correction {
     display: flex;
@@ -117,8 +117,8 @@ td {
     float: left;
 }
 .information {
-    width: 40%;
-    float: right;
+    width: 700px;
+    float: left;
     margin-top: 100px;
 }
 .drinks {
