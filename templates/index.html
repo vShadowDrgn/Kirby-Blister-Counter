@@ -41,22 +41,22 @@
             <tr>
                 <td>Cola</td>
                 <td><span id="cola_geld_sparen"></span>€</td>
-                <td><span id="cola_zucker_sparen"></span>g</td>
+                <td><span id="cola_zucker_sparen"></span> <span id="cola_zucker_sparen_einheit"></span></td>
             </tr>
             <tr>
                 <td>Sprite</td>
                 <td><span id="sprite_geld_sparen"></span>€</td>
-                <td><span id="sprite_zucker_sparen"></span>g</td>
+                <td><span id="sprite_zucker_sparen"></span> <span id="sprite_zucker_sparen_einheit"></span></td>
             </tr>
             <tr>
                 <td>Apfelsaft</td>
                 <td><span id="saft_geld_sparen"></span>€</td>
-                <td><span id="saft_zucker_sparen"></span>g</td>
+                <td><span id="saft_zucker_sparen"></span> <span id="saft_zucker_sparen_einheit"></span></td>
             </tr>
             <tr>
                 <td>Eistee Pfirisch</td>
                 <td>-<span id="eistee_geld_sparen"></span>€</td>
-                <td><span id="eistee_zucker_sparen"></span>g</td>
+                <td><span id="eistee_zucker_sparen"></span> <span id="eistee_zucker_sparen_einheit"></span></td>
             </tr>
         </table>
     </div>
@@ -83,7 +83,18 @@
         });
 
         function round(number) {
-            return (Math.round(number*100))/100
+            return (Math.round(number*100))/100;
+        }
+
+        function update_value(value_object, unit_object, value) {
+            if (value>1000) {
+                unit_object.text("kg");
+                value_object.text(round(value/1000));
+            }
+            else {
+                unit_object.text("g");
+                value_object.text(round(value));
+            }
         }
 
         function get_counter() {
@@ -91,26 +102,36 @@
                 $("#total_count_span").text(response.total_count);
                 $("#current_count_span").text(response.current_count);
                 $("#water").height(response.current_count);
+                if (response.current_count>150) {
+                    $("#current_count_span").addClass("water_text_color");
+                }
+                else {
+                    $("#current_count_span").removeClass("water_text_color");
+                }
                 if (response.current_count>200) {
-                    $("#dose_voll").show()
+                    $("#dose_voll").show();
+                }
+                else {
+                    $("#dose_voll").hide();
                 }
                 $("#points_span").text(response.current_count*5);
                 $("#plastic_span").text(round((response.total_count/1000)*30));
                 $("#carbon_span").text(round((response.total_count/1000)*150));
                 $("#wasser_geld_span").text(round(response.total_count*0.03));
                 $("#cola_geld_sparen").text(round(response.total_count*0.69));
-                $("#cola_zucker_sparen").text(round(response.total_count*5.3));
+                update_value($("#cola_zucker_sparen"), $("#cola_zucker_sparen_einheit"), response.total_count*5.3);
                 $("#sprite_geld_sparen").text(round(response.total_count*0.69));
-                $("#sprite_zucker_sparen").text(round(response.total_count*3.95));
+                update_value($("#sprite_zucker_sparen"), $("#sprite_zucker_sparen_einheit"), response.total_count*3.95);
                 $("#saft_geld_sparen").text(round(response.total_count*0.06));
-                $("#saft_zucker_sparen").text(round(response.total_count*4.85));
+                update_value($("#saft_zucker_sparen"), $("#saft_zucker_sparen_einheit"), response.total_count*4.85);
                 $("#eistee_geld_sparen").text(round(response.total_count*0.09));
-                $("#eistee_zucker_sparen").text(round(response.total_count*6));
+                update_value($("#eistee_zucker_sparen"), $("#eistee_zucker_sparen_einheit"), response.total_count*6);
             });
         };
 
         $(document).ready(function() {
             $("#dose_voll").hide();
+            $("#ColaKilo").hide();
             get_counter();
             setInterval(get_counter, 10000);
         });

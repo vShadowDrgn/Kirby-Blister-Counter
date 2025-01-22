@@ -24,6 +24,7 @@ h1 {
     color: azure;
     width: 800px;
     padding: 10px;
+    margin-top: 25px;
 }
 .statistic {
     font-size: 70px;
@@ -32,12 +33,19 @@ h1 {
     color: azure;
     width: 300px;
     padding: 10px;
+    margin-top: 25px;
+}
+#blister_logo {
+    height: 150px;
+    margin-left: 50px;
+    animation: rotate 6s infinite;
 }
 .wrapper {
     width:100%;
     overflow:auto;
     padding: 10px;
     display: flex;
+    font-weight: bold;
 }
 .text-left {
     margin-left: 25px;
@@ -70,6 +78,9 @@ h1 {
 #current_count_span {
     position: absolute;
 }
+.water_text_color {
+    color: rgb(20, 20, 20);
+}
 #reset {
     font-size: 25px;
     margin: 10px auto 0px auto;
@@ -100,6 +111,9 @@ td {
 #drinks {
     font-size: 25px;
 }
+.span {
+    color: purple;
+}
 .month {
     height: 400px;
     overflow: auto;
@@ -123,4 +137,15 @@ td {
 }
 .drinks {
     margin-left: 200px;
+}
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg);
+    }
+    10%{
+        transform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }

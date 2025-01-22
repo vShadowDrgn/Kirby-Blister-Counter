@@ -117,12 +117,12 @@
 
         const months_chart = new Chart(
             $("#months_chart"),
-            barconfig
+            JSON.parse(JSON.stringify(barconfig))
         );
 
         const years_chart = new Chart(
             $("#years_chart"),
-            barconfig
+            JSON.parse(JSON.stringify(barconfig))
         );
 
         function round(number) {
