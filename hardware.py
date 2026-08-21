@@ -1,35 +1,39 @@
 import time
-import RPi.GPIO as GPIO # type: ignore
 from threading import Lock
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(8, GPIO.OUT)
-GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-pwm = GPIO.PWM(8, 50)
-pwm.start(0)
+from gpiozero import Device, PWMOutputDevice, DigitalInputDevice
+from gpiozero.pins.lgpio import LGPIOFactory
+
+# Physical pin 8 = BCM GPIO14
+# Physical pin 10 = BCM GPIO15
+
+Device.pin_factory = LGPIOFactory(chip=0)
+servo = PWMOutputDevice(14, frequency=50, initial_value=0)
+sensor = DigitalInputDevice(15, pull_up=False)
 
 servo_lock = Lock()
 
 def set_angle(angle):
     with servo_lock:
         print(f"Servo {angle}°")
-        duty = 2 + (angle / 18)  # 2 corresponds to 0 degrees, 12 corresponds to 180 degrees
-        pwm.ChangeDutyCycle(duty)
+        duty_percent = 2 + (angle / 18)
+        servo.value = duty_percent / 100
         time.sleep(0.5)
-        pwm.ChangeDutyCycle(0)
+        servo.value = 0
 
 def ir_loop(database):
-    last_input = GPIO.input(10)
+    last_input = sensor.value
+
     while True:
-        inpt = GPIO.input(10)
+        inpt = sensor.value
 
-        if inpt == 0:  # Sensor ist getriggert
-            if last_input == 1:  # Wenn der Sensor im letzten Schleifendurchlauf auf 1 war, hat sich der Zustand also verändert (von aus zu an).
-                database.increase_counter() # Zähler erhöhen
-                set_angle(120) # Klappe öffnen
-        elif inpt == 1 and last_input == 0:  # Wenn der Sensor jetzt auf 1 ist und vorher auf 0 war, hat sich der Zustand ebenfalls verändert (von an zu aus)
-            set_angle(35) # Klappe schließen
+        if inpt == 0:
+            if last_input == 1:
+                database.increase_counter()
+                set_angle(120)
 
-        last_input = inpt # Variable für letzten Input updaten
+        elif inpt == 1 and last_input == 0:
+            set_angle(35)
+
+        last_input = inpt
         time.sleep(0.01)
